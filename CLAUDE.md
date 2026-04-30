@@ -38,3 +38,9 @@ There is no test suite, linter config, or build step. "Verifying" a change means
 - Keep user-facing strings in Portuguese.
 - Don't introduce Plotly/Altair custom charts unless a feature genuinely needs them — `st.line_chart` and `st.metric` are deliberately the whole vocabulary right now.
 - The plan that produced this app is at `C:/Users/diego/.claude/plans/criei-um-site-ethereal-puffin.md` and lists what is intentionally out of scope (moving averages, volume, volatility, deploy).
+
+## GitHub auto-sync
+
+The repo is at https://github.com/DiegoLemos93/Vscode-claude (public). Every Claude Code turn automatically commits and pushes any uncommitted changes via a `Stop` hook configured in `.claude/settings.local.json` (gitignored, personal). The hook runs `.claude/auto-sync.sh`, which is a no-op when `git status` is clean and silently swallows push errors so it never blocks a response. The commit message is fixed: `Auto-sync: Claude Code update`.
+
+Don't make manual `git commit` / `git push` calls during a session — the hook handles it. If you need a different commit message for a specific change, edit the file, then `git commit --amend -m "..."` and `git push --force-with-lease` *after* the hook has already pushed.
